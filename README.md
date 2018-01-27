@@ -2,6 +2,30 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.6.
 
+# Versão durante a criação
+
+Angular CLI: 1.6.6
+Node: 8.9.3
+OS: win32 x64
+Angular: 5.2.2
+... animations, common, compiler, compiler-cli, core, forms
+... http, language-service, platform-browser
+... platform-browser-dynamic, router
+
+@angular/cli: 1.6.6
+@angular-devkit/build-optimizer: 0.0.42
+@angular-devkit/core: 0.0.29
+@angular-devkit/schematics: 0.0.52
+@ngtools/json-schema: 1.1.0
+@ngtools/webpack: 1.9.6
+@schematics/angular: 0.1.17
+typescript: 2.5.3
+webpack: 3.10.0
+
+# Comando para criação do projeto
+
+ng new consultorio-frontend --style=scss --routing --skip-tests
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
