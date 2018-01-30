@@ -5,6 +5,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AppHttpInterceptor } from './app-http-interceptor';
+import { AppService } from './app.service';
+import { TokenService } from './auth/_services/token.service';
 
 @NgModule({
   declarations: [
@@ -16,6 +18,8 @@ import { AppHttpInterceptor } from './app-http-interceptor';
     HttpClientModule
   ],
   providers: [
+    AppService,
+    TokenService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AppHttpInterceptor,

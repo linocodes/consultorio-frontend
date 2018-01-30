@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  api: 'http://localhost:8080'
+  api: 'https://jsonplaceholder.typicode.com',
+  tokenUser: 'TOKEN_USER'
 };

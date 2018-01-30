@@ -1,34 +1,62 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest } from '@angular/common/http';
+import {
+  HttpClient, HttpEvent, HttpInterceptor, HttpHandler,
+  HttpRequest, HttpHeaders, HttpEventType, HttpResponse
+} from '@angular/common/http';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
+import { API } from './app.api';
+import { TokenService } from './auth/_services/token.service';
 
 @Injectable()
 export class AppHttpInterceptor implements HttpInterceptor {
 
-  constructor() { }
+  private authHeaders: HttpHeaders;
+  private api: string;
+
+  constructor(private _tokenService: TokenService) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
     console.log('intercepted request ... Metodo(' + req.method + ') url (' + req.url + ')');
 
-    // Clone the request to add the new header.
-    const authReq = req.clone({ headers: req.headers.set('headerName', 'headerValue') });
+    this._setAuthHeaders(this._tokenService.token);
+    this._addApi(req);
 
-    console.log('Sending request with new header now ...');
+    const authReq = req.clone({
+      headers: this.authHeaders,
+      url: this.api
 
-    // Send the newly created request
-    return next.handle(authReq)
+    });
+
+    return next.handle(authReq).do(evt => {
+
+      if (evt instanceof HttpResponse) {
+        console.log('---> status:', evt.status);
+        console.log('---> filter:', authReq.params.getAll);
+        console.log(evt.body);
+      }
+
+    })
       .catch((error, caught) => {
-        // intercept the respons error and displace it to the console
-        console.log('Error Occurred');
+        const errMsg = (error.message) ? error.message : error.status ? `${error.status} - ${error.statusText}` : 'Server error';
+        console.error(errMsg);
         console.log(error);
-        // return the error to the method that called it
         return Observable.throw(error);
       }) as any;
   }
+
+  private _setAuthHeaders(access_token: any, token_type = 'Bearer') {
+    this.authHeaders = new HttpHeaders();
+    this.authHeaders = this.authHeaders.append('Authorization', token_type + ' ' + access_token);
+    this.authHeaders = this.authHeaders.append('Content-Type', 'application/json');
+  }
+
+  private _addApi(req: HttpRequest<any>) {
+    this.api = `${API}${req.url}`;
+  }
+
 }
 
 

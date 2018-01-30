@@ -1,5 +1,6 @@
+import { AppService } from './app.service';
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-root',
@@ -10,17 +11,24 @@ export class AppComponent {
 
   title = 'app';
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private _service: AppService) { }
 
   method1Call(): void {
-    this.httpClient.get('https://jsonplaceholder.typicode.com/users').subscribe(
+    this._service.getAll().subscribe(
       success => {
         console.log('Successfully Completed');
         console.log(success);
+      },
+      error => {
+        console.log(error);
+      },
+      () => {
+        console.log('fim');
       }
     );
   }
 
+/*
   method2Call(): void {
     this.httpClient.get('https://jsonplaceholder.typicode.com/user12').subscribe(
       success => {
@@ -38,6 +46,7 @@ export class AppComponent {
       }
     );
   }
+  */
 
 
 
