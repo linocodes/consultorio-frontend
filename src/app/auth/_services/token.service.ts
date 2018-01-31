@@ -32,4 +32,8 @@ export class TokenService {
     return this.getTokenUser().token;
   }
 
+  removeToken() {
+    localStorage.removeItem(`${TOKEN_USER}`);
+  }
+
 }

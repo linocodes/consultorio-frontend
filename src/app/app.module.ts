@@ -1,5 +1,5 @@
+import { SharedModule } from './shared/shared.module';
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -7,16 +7,30 @@ import { AppComponent } from './app.component';
 import { AppHttpInterceptor } from './app-http-interceptor';
 import { AppService } from './app.service';
 import { TokenService } from './auth/_services/token.service';
+import { AuthModule } from './auth/auth.module';
+import { LayoutsModule } from './theme/layouts/layouts.module';
+import { ThemeRoutingModule } from './theme/theme-routing.module';
+import { ThemeComponent } from './theme/theme.component';
+import { BrowserModule } from '@angular/platform-browser';
 
 @NgModule({
+
   declarations: [
     AppComponent,
+    ThemeComponent
   ],
+
   imports: [
     BrowserModule,
+    HttpClientModule,
+    ThemeRoutingModule,
     AppRoutingModule,
-    HttpClientModule
+    LayoutsModule,
+    AuthModule,
+    SharedModule
+
   ],
+
   providers: [
     AppService,
     TokenService,
@@ -27,6 +41,7 @@ import { TokenService } from './auth/_services/token.service';
     }
 
   ],
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }
