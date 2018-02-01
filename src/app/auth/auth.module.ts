@@ -1,3 +1,4 @@
+import { CpfMascaraPipe } from './../pipe/cpf-mascara.pipe';
 import { NgModule } from '@angular/core';
 
 import { LogoutComponent } from './logout/logout.component';
@@ -21,7 +22,7 @@ import { JwtService } from './_services/jwt.service';
     AuthenticationService,
     AuthGuard,
     JwtService,
-    AlertService
+    AlertService,
   ],
 
   declarations: [

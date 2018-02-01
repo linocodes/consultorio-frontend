@@ -1,10 +1,21 @@
-aaaa
-<!--
+
 <form (ngSubmit)="f.form.valid && signin()" #f="ngForm" class="m-login__form m-form" action="">
   <ng-template #alertSignin></ng-template>
   <div class="form-group m-form__group">
     <input class="form-control m-input" type="text" placeholder="CPF" id="email" name="email" [(ngModel)]="model.email" #email="ngModel"
-      autocomplete="off">
+    mascara="999.999.999-99" cpf-validate autocomplete="off">
+
+    <div class="col-sm-8 text-success"
+    *ngIf="!email.errors && !email.pristine">
+    <span class="glyphicon glyphicon-ok"
+      aria-hidden="true"></span> CPF válido!
+  </div>
+  <div class="col-sm-8 text-danger"
+    *ngIf="email.errors && !email.pristine">
+    <span class="glyphicon glyphicon-remove"
+      aria-hidden="true"></span> CPF inválido.
+  </div>
+
   </div>
   <div class="form-group m-form__group">
     <input class="form-control m-input m-login__form-input--last" type="password" placeholder="Senha" name="password" [(ngModel)]="model.password"
@@ -24,6 +35,13 @@ aaaa
       Entrar
     </button>
   </div>
+  {{cpf | cpfMascara}}
+
+  <input mask-number [mask]="'99999-999'" name="valCode" [(ngModel)]="model.valCode">
+
+  <input mask-number [mask]="'(99) 999999999'" [reqMin]="13" name="valPhone" [(ngModel)]="model.valPhone">
+
+  <input mask-money [prefix]="'R$'" name="valMoney" [(ngModel)]="model.valMoney">
 </form>
 
--->
+

@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-//import { Router, ActivatedRoute } from '@angular/router';
+import { Component, OnInit, ViewChild, ViewContainerRef, ComponentFactoryResolver } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
-//import { AuthenticationService } from '../_services/authentication.service';
-//import { AlertService } from '../_services/alert.service';
-//import { AlertComponent } from '../_directive/alert/alert.component';
+import { AuthenticationService } from '../_services/authentication.service';
+import { AlertService } from '../_services/alert.service';
+import { AlertComponent } from '../_directive/alert/alert.component';
 
 @Component({
   selector: 'app-login',
@@ -11,10 +11,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-/*
   model: any = {};
   loading = false;
   returnUrl: string;
+  cpf = '01170476600';
 
   @ViewChild('alertSignin', { read: ViewContainerRef }) alertSignin: ViewContainerRef;
 
@@ -25,12 +25,12 @@ export class LoginComponent implements OnInit {
     private _alertService: AlertService,
     private cfr: ComponentFactoryResolver) {
   }
-*/
+
   ngOnInit() {
-    //this.returnUrl = this._route.snapshot.queryParams['returnUrl'] || '/';
-    //this._router.navigate([this.returnUrl]);
+    this.returnUrl = this._route.snapshot.queryParams['returnUrl'] || '/';
+    this._router.navigate([this.returnUrl]);
   }
-  /*
+
 
   signin() {
     this.loading = true;
@@ -51,6 +51,5 @@ export class LoginComponent implements OnInit {
     const ref = this[target].createComponent(factory);
     ref.changeDetectorRef.detectChanges();
   }
-  */
 
 }

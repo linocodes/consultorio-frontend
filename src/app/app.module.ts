@@ -12,12 +12,13 @@ import { LayoutsModule } from './theme/layouts/layouts.module';
 import { ThemeRoutingModule } from './theme/theme-routing.module';
 import { ThemeComponent } from './theme/theme.component';
 import { BrowserModule } from '@angular/platform-browser';
+import { CpfMascaraPipe } from './pipe/cpf-mascara.pipe';
 
 @NgModule({
 
   declarations: [
     AppComponent,
-    ThemeComponent
+    ThemeComponent,
   ],
 
   imports: [

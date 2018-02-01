@@ -5,6 +5,7 @@ import { JwtHelper } from 'angular2-jwt';
 
 import { JwtService } from './../_services/jwt.service';
 import { AuthenticationService } from '../_services/authentication.service';
+import { TokenService } from '../_services/token.service';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -14,14 +15,17 @@ export class AuthGuard implements CanActivate {
   constructor(
     private _router: Router,
     private _jwtservice: JwtService,
+    private _tokenService: TokenService,
     private _authenticationService: AuthenticationService
   ) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | boolean {
 
-    if (!this._jwtservice.isAuthenticated()) {
-      //this._authenticationService.refresh();
-      //return true;
+    if (this._tokenService.token === 'undefined') {
+      if (!this._jwtservice.isAuthenticated()) {
+        this._authenticationService.refresh();
+        return true;
+      }
     }
 
     this._router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
